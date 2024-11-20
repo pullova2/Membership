@@ -2,17 +2,37 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useMembershipState } from "../store/useMembership";
 
 const CompanyInformation = () => {
+  const { setCompanyData, company } = useMembershipState();
   const navigation = useNavigate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
-    if (Object.values(data).includes("")) {
-      toast.error("haha you gotta provide all values");
-      return;
-    }
+    console.log(data);
+
+    // if (Object.values(data).includes("")) {
+    //   toast.error("haha you gotta provide all values");
+    //   return;
+    // }
+
+    setCompanyData({
+      company_name: data.CompanyName as string,
+      address: data.CompanyAddress as string,
+      certificate_of_incoperation: data.CertificateOfIncorporation as File,
+      cr12: data.CR12 as File,
+      postal_code: data.PostalCode as string,
+      kra_pin: data.kraPin as string,
+      company_phone: data.companyPhone as string,
+      company_email: data.companyEmail as string,
+      contact_name: data.name as string,
+      contact_phone: data.phone as string,
+      contact_role: data.role as string,
+      contact_email: data.email as string,
+      company_info: "info",
+    });
     navigation("/types");
   };
   return (
@@ -34,7 +54,7 @@ const CompanyInformation = () => {
             type="text"
             label="Company official name"
             placeholder="your company name"
-            defaultValue="some stuff"
+            defaultValue={company.company_name}
           />
           <Input
             name="CompanyAddress"
@@ -43,7 +63,7 @@ const CompanyInformation = () => {
             label="CompanyAddress"
           />
           <Input
-            name="Certificate of incorporation"
+            name="CertificateOfIncorporation"
             type="file"
             placeholder="Upload 2mb max"
             label="Certificate of incorporation"
@@ -77,6 +97,7 @@ const CompanyInformation = () => {
             type="email"
             placeholder="your company email"
             label="company email"
+            defaultValue={company.company_email}
           />
         </section>
         <h5 className="mt-6 mb-6 font-bold text-primary-dark">

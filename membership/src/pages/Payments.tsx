@@ -2,17 +2,19 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { MembershipPlans, useMembershipState } from "../store/useMembership";
-import { useRegisterIndividual } from "../hooks/membership";
+import { useRegisterCompany, useRegisterIndividual } from "../hooks/membership";
 import toast from "react-hot-toast";
 
 const Payments = () => {
   const navigation = useNavigate();
   const { accountType } = useMembershipState();
   const { data, error, createIndividual } = useRegisterIndividual();
+  const { createCompany } = useRegisterCompany();
 
   const handleNext = async () => {
     if (accountType === MembershipPlans.corporate) {
-      navigation("/company/about");
+      createCompany();
+      // navigation("/company/location");
       return;
     }
 
