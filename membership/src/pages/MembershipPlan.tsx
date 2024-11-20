@@ -18,7 +18,10 @@ const MembershipPlan = () => {
         </p>
         <section className=" bg-primary-abbey rounded-lg flex  items-center mt-6">
           <div className=" mr-4  h-full bg-green-100 ">
-            <img src={IndividualImage} className="object-cover" />
+            <img
+              src={IndividualImage}
+              className="object-cove rounded-full ml-2 md:ml-4"
+            />
           </div>
           <div className="flex flex-col h-full">
             <h5 className="mt-4">Individual plan</h5>
