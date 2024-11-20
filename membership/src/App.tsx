@@ -24,6 +24,8 @@ import {
   CompanyType,
   PullovaServices,
   Terms,
+  CompanyLocation,
+  CompanyComplete,
 } from "./pages";
 
 // remote apps
@@ -70,8 +72,16 @@ const App = () => {
       element: <RegisterCompany />,
     },
     {
+      path: "/company/location",
+      element: <CompanyLocation />,
+    },
+    {
       path: "/company/information",
       element: <CompanyInformation />,
+    },
+    {
+      path: "/company/complete",
+      element: <CompanyComplete />,
     },
     {
       path: "/registration",

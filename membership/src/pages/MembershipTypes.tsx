@@ -8,61 +8,21 @@ import { MembershipPlans, useMembershipState } from "../store/useMembership";
 const MembershipTypes = () => {
   const { data, isError, isLoading } = useGetMemberShipTypes();
   const naviagtion = useNavigate();
-  const { setIndividualData, accountType } = useMembershipState();
+  const { setIndividualData, accountType, setCompanyData } =
+    useMembershipState();
 
   const handleNavigate = (id: number) => {
     if (accountType === MembershipPlans.corporate) {
+      setCompanyData({ membership_id: id, ride_only: false });
       naviagtion("/payment");
       return;
     }
     setIndividualData({ membership_id: id });
+
     naviagtion("/usage");
   };
 
   console.log(data);
-
-  const cards = [
-    {
-      id: 1,
-      name: "silver",
-      price: "price",
-      benefits: [
-        {
-          name: "sapien leo tortor sagittis. Sit pulvinar in lacus neque port",
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "name",
-      price: "price",
-      benefits: [
-        {
-          name: "sapien leo tortor sagittis. Sit pulvinar in lacus neque port",
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: "name",
-      price: "price",
-      benefits: [
-        {
-          name: "sapien leo tortor sagittis. Sit pulvinar in lacus neque port",
-        },
-      ],
-    },
-    {
-      id: 4,
-      name: "name",
-      price: "price",
-      benefits: [
-        {
-          name: "sapien leo tortor sagittis. Sit pulvinar in lacus neque port",
-        },
-      ],
-    },
-  ];
 
   const MembershipLoader = () => {
     return (

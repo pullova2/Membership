@@ -15,18 +15,24 @@ const RegisterCompany = () => {
     const data = Object.fromEntries(formData);
     console.log(data);
 
-    // if (Object.values(data).includes("")) {
-    //   toast.error("please provide all fields");
-    //   return;
-    // }
+    if (Object.values(data).includes("")) {
+      toast.error("please provide all fields");
+      return;
+    }
+
+    if (data.confirmPassword !== data.password) {
+      toast.error("password mismatch");
+      return;
+    }
+
     setCompanyData({
-      company_email: data.companyEmail,
-      password: data.password,
-      password_confirmation: data.confirmPassword,
-      name: data.name,
-      contact_name: data.registerPersonEmail,
+      company_email: data.companyEmail as string,
+      password: data.password as string,
+      password_confirmation: data.confirmPassword as string,
+      name: data.name as string,
+      company_name: data.companyName as string,
     });
-    // navigation("information");
+    navigation("information");
   };
 
   return (
@@ -36,7 +42,7 @@ const RegisterCompany = () => {
       </h4>
       <form
         onSubmit={handleSubmit}
-        className="w-[90%] h-2/3 overflow-y-scroll rounded-lg p-4 bg-primary-light md:w-[450px] mt-12 flex flex-col gap-8 self-center"
+        className="w-[90%] h-2/3  rounded-lg p-4 bg-primary-light md:w-[450px] mt-12 flex flex-col gap-8 self-center"
       >
         <Input
           label="company name"
@@ -55,18 +61,10 @@ const RegisterCompany = () => {
           className="placeholder:text-primary-abbey"
         />
         <Input
-          label="Your name"
-          name="name"
-          type="text"
-          key={"passwordInput"}
-          placeholder="person registering name"
-          className="placeholder:text-primary-abbey"
-        />
-        <Input
           label="Password"
           name="password"
           type="password"
-          key={"confirmPasswordInput"}
+          key={"passwordInput"}
           placeholder="password"
           className="placeholder:text-primary-abbey"
         />
@@ -79,10 +77,19 @@ const RegisterCompany = () => {
           className="placeholder:text-primary-abbey"
         />
         <Input
+          label="Your name"
+          name="name"
+          type="text"
+          key={"registerName"}
+          placeholder="person registering name"
+          className="placeholder:text-primary-abbey"
+        />
+
+        {/* <Input
           label="Your contact"
           name="contact"
           type="tel"
-          key={"confirmPasswordInput"}
+          key={"registerContact"}
           placeholder="person registering contact"
           className="placeholder:text-primary-abbey"
         />
@@ -93,7 +100,7 @@ const RegisterCompany = () => {
           key={"officialRegisterEmail"}
           placeholder="person registering email"
           className="placeholder:text-primary-abbey"
-        />
+        /> */}
         <Button name="Register" type="button" className="text-primary-light" />
         {/* <div className="flex mt-4 justify-evenly">
           <h6>Already have an account?</h6>

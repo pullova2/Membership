@@ -15,6 +15,11 @@ axiosInstance.interceptors.response.use(
     return response.data;
   },
   (err: AxiosError) => {
+    console.log(`Error from >> Url:${err.config?.url}`);
+    console.log(err);
+
+    console.log("message", err.message);
+    console.log("code", err.code);
     throw err.response;
     return err.response;
   }

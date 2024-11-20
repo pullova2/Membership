@@ -9,6 +9,7 @@ interface MembershipState {
   getMembershipTypes: () => any;
   isUpload: boolean;
   hasBranches: boolean;
+  hasAnotherLocation: boolean;
   branches: number;
   setIsUpload: () => void;
   individual: individualRegister;
@@ -23,11 +24,15 @@ interface MembershipState {
   registerStudent: () => any;
   loginUser: (data: LoginUser) => any;
   branchStep: number;
+  companyStep: number;
   company: CompanyRegister;
   incrementBranchStep: () => void;
   decrementBranchStep: () => void;
+  incrementCompanyStep: () => void;
+  decrementCompanyStep: () => void;
   createBranch: () => void;
   addBranchEmployees: () => void;
+  setHasAnotherLocation: () => void;
 }
 
 export enum MembershipPlans {
@@ -50,10 +55,11 @@ type CompanyRegister = {
   password?: string;
   password_confirmation?: string;
   address?: string;
-  certificate_of_incoperation?: string;
-  cr12?: string;
+  certificate_of_incoperation?: File | null;
+  cr12?: File | null;
   postal_code?: string;
-  kra_pin: string;
+  kra_pin?: string;
+  company_name?: string;
   company_phone?: string;
   contact_phone?: string;
   contact_name?: string;
@@ -109,6 +115,9 @@ type companyAdditionalDetails = {
 export const useMembershipState = create<MembershipState>((set, get) => ({
   accountType: MembershipPlans.Individual,
 
+  hasAnotherLocation: false,
+  companyStep: 0,
+
   student: {
     email: "",
     email_verified: false,
@@ -143,8 +152,8 @@ export const useMembershipState = create<MembershipState>((set, get) => ({
     password_confirmation: "",
     ride_only: false,
     address: "",
-    certificate_of_incoperation: "",
-    cr12: "",
+    certificate_of_incoperation: null,
+    cr12: null,
     postal_code: "",
     kra_pin: "",
     company_phone: "",
@@ -210,11 +219,22 @@ export const useMembershipState = create<MembershipState>((set, get) => ({
     set({ branchStep: Math.max(branchStep - 1, 0) });
   },
 
+  incrementCompanyStep: () => {
+    const { companyStep } = get();
+    set({ companyStep: Math.min(companyStep + 1, 1) });
+  },
+
+  decrementCompanyStep: () => {
+    const { companyStep } = get();
+    set({ companyStep: Math.max(companyStep - 1, 0) });
+  },
+
   registerIndividual: async () => {
     const { individual } = get();
+    console.log("registering", individual);
     try {
       const response = await axiosInstance.post("store/individual", individual);
-
+      console.log("res", response);
       return response.data;
     } catch (error) {
       console.log("register", error);
@@ -225,19 +245,22 @@ export const useMembershipState = create<MembershipState>((set, get) => ({
   registerCompany: async () => {
     try {
       const { company } = get();
+      console.log(`registering`, company);
       const response = await axiosInstance.post("create/company", company);
       return response;
     } catch (error) {
+      throw error;
       return error;
     }
   },
 
   registerStudent: async () => {
     try {
-      const {} = get();
-      const response = await axiosInstance.post("create/student");
+      const { student } = get();
+      const response = await axiosInstance.post("create/student", student);
       return response;
     } catch (error) {
+      throw error;
       return error;
     }
   },
@@ -266,4 +289,14 @@ export const useMembershipState = create<MembershipState>((set, get) => ({
   createBranch: () => {},
 
   addBranchEmployees: () => {},
+
+  setHasAnotherLocation: () => {
+    const { hasAnotherLocation } = get();
+    if (hasAnotherLocation) {
+      set({ hasAnotherLocation: false });
+      return;
+    }
+    set({ hasAnotherLocation: true });
+    return;
+  },
 }));
