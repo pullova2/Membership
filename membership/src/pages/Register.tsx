@@ -42,7 +42,7 @@ const Register = () => {
           name="name"
           type="text"
           key={"fullNameInput"}
-          placeholder="please enter your email"
+          placeholder="please enter your full name"
           className="placeholder:text-primary-abbey"
         />
         <Input
