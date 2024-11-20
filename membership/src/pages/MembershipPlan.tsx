@@ -17,7 +17,7 @@ const MembershipPlan = () => {
           netus nam.
         </p>
         <section className=" bg-primary-abbey rounded-lg flex  items-center mt-6">
-          <div className=" mr-4  h-full bg-green-100 ">
+          <div className=" mr-4  h-full ">
             <img
               src={IndividualImage}
               className="object-cove rounded-full ml-2 md:ml-4"
