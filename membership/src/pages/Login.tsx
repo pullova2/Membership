@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { FormEvent } from "react";
 import toast from "react-hot-toast";
 import { GoogleLogin } from "@react-oauth/google";
 import { GoogleSignIn } from "../components";
+import { useMembershipState } from "../store/useMembership";
 
 const Login = () => {
+  const navigation = useNavigate();
+  const { user, loginTesterUser, loginUser } = useMembershipState();
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -17,6 +20,9 @@ const Login = () => {
       toast.error("Please fill all fields");
     }
   };
+  if (user) {
+    navigation("/home");
+  }
   return (
     <div className="bg-primary-dark  min-h-svh flex flex-col">
       <h4 className="text-center font-bold mt-12 text-primary-light">
@@ -43,6 +49,12 @@ const Login = () => {
           className="placeholder:text-primary-abbey"
         />
         <Button name="submit" type="button" className="text-primary-light" />
+        <Button
+          name="Login Tester"
+          type="button"
+          handleOnclick={loginTesterUser}
+          className="text-primary-dark bg-primary-light border border-primary-dark hover:translate-y-1 transition-transform duration-300"
+        />
         <GoogleSignIn />
         <div className="flex md:mt-4 mt-2 justify-evenly">
           <h6>Don't have an account?</h6>

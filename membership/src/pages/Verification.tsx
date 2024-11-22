@@ -153,10 +153,10 @@ const Verification = () => {
   return (
     <section className="bg-primary-dark text-primary-light min-h-svh flex flex-col items-center justify-center gap-16">
       <h4 className="font-bold">
-        Add your{" "}
+        Add your
         {accountType === MembershipPlans.Individual
           ? "personal identity card"
-          : "Profile picture"}
+          : "student id card"}
       </h4>
       <details className="w-[90%] md:w-1/3 p-2 duration-300 ease-linear">
         <summary className="text-lg font-bold">Image requirements</summary>

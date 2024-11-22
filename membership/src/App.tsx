@@ -26,6 +26,7 @@ import {
   Terms,
   CompanyLocation,
   CompanyComplete,
+  Home,
 } from "./pages";
 
 // remote apps
@@ -131,6 +132,10 @@ const App = () => {
     {
       path: "/terms",
       element: <Terms />,
+    },
+    {
+      path: "/home",
+      element: <Home />,
     },
     // micro apps
     {

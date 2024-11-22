@@ -20,3 +20,4 @@ export { default as PullovaServices } from "./PullovaServices";
 export { default as Terms } from "./Terms";
 export { default as CompanyLocation } from "./CompanyLocation";
 export { default as CompanyComplete } from "./CompanyComplete";
+export { default as Home } from "./Home";

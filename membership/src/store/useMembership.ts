@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 
 interface MembershipState {
   accountType: MembershipPlans;
+  user: object | null;
   setAccountType: (type: MembershipPlans) => void;
   getMembershipTypes: () => any;
   isUpload: boolean;
@@ -33,6 +34,8 @@ interface MembershipState {
   createBranch: () => void;
   addBranchEmployees: () => void;
   setHasAnotherLocation: () => void;
+  loginTesterUser: () => void;
+  logOutUser: () => void;
 }
 
 export enum MembershipPlans {
@@ -114,7 +117,7 @@ type companyAdditionalDetails = {
 
 export const useMembershipState = create<MembershipState>((set, get) => ({
   accountType: MembershipPlans.Individual,
-
+  user: {},
   hasAnotherLocation: false,
   companyStep: 0,
 
@@ -243,9 +246,9 @@ export const useMembershipState = create<MembershipState>((set, get) => ({
   },
 
   registerCompany: async () => {
+    const formData = new FormData();
     try {
       const { company } = get();
-      console.log(`registering`, company);
       const response = await axiosInstance.post("create/company", company);
       return response;
     } catch (error) {
@@ -298,5 +301,21 @@ export const useMembershipState = create<MembershipState>((set, get) => ({
     }
     set({ hasAnotherLocation: true });
     return;
+  },
+
+  logOutUser() {
+    set({ user: null });
+  },
+
+  loginTesterUser: () => {
+    const { user } = get();
+    set({
+      user: {
+        ...user,
+        name: "tester",
+        token: "BtzvPwcNXfgSfMBI28Oy9g==",
+        email: "tester@gmail.com",
+      },
+    });
   },
 }));
