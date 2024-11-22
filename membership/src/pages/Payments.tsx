@@ -2,19 +2,23 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { MembershipPlans, useMembershipState } from "../store/useMembership";
-import { useRegisterCompany, useRegisterIndividual } from "../hooks/membership";
-import toast from "react-hot-toast";
+import {
+  useRegisterCompany,
+  useRegisterIndividual,
+  useRegisterStudent,
+} from "../hooks/membership";
 
 const Payments = () => {
   const navigation = useNavigate();
   const { accountType } = useMembershipState();
-  const { data, error, createIndividual } = useRegisterIndividual();
+  const { createIndividual } = useRegisterIndividual();
+  const { createStudent } = useRegisterStudent();
   const { createCompany } = useRegisterCompany();
 
   const handleNext = async () => {
     if (accountType === MembershipPlans.corporate) {
       createCompany();
-      // navigation("/company/location");
+      navigation("/company/location");
       return;
     }
 
@@ -23,7 +27,7 @@ const Payments = () => {
       navigation("/completeMembership");
       return;
     }
-
+    createStudent();
     navigation("/completeMembership");
   };
 
