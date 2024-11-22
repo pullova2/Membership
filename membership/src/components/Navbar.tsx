@@ -21,7 +21,7 @@ const Navbar = () => {
         name="Login"
         type="button"
         handleOnclick={handleLogin}
-        className="flex md:basis-[200px] basis-[100px] border border-primary-light text-primary-light items-center justify-center"
+        className="flex md:basis-[200px] basis-[100px] border border-primary-light text-primary-light items-center justify-center rounded-md"
       />
     </nav>
   );
