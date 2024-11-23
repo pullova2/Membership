@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
 import { services } from "../utils/Services";
+import { darkModeTextStyles } from "../defaults/styles";
 
 const Landing = () => {
   gsap.registerPlugin(useGSAP);
@@ -33,7 +34,9 @@ const Landing = () => {
           {services.map((item, index) => {
             return (
               <div key={index} className=" flex flex-col">
-                <h6 className="text-center">{item.name}</h6>
+                <h6 className={`text-center ${darkModeTextStyles}`}>
+                  {item.name}
+                </h6>
                 <div className="lg:h-[400px] lg:w-[400px] md:h-[300px] md:w-[300px] w-[200px] h-[200px]">
                   <img
                     src={item.image}
@@ -53,7 +56,7 @@ const Landing = () => {
       </div>
       <Link
         to={"/plans"}
-        className="bg-primary-dark dark:bg-primary-light gap-4 flex items-center justify-center hover:opacity-80 duration-300 text-primary-light dark:text-primary-light md:w-1/3 w-full py-4 rounded-md self-center"
+        className="bg-primary-dark dark:bg-primary-light gap-4 flex items-center justify-center hover:opacity-80 duration-300 text-primary-light dark:text-primary-dark md:w-1/3 w-full py-4 rounded-md self-center"
       >
         Get started
         <FaArrowRight size={24} />
