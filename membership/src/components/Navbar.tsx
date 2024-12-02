@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/images/Frame.svg";
-import LogoName from "../assets/images/LogoName.svg";
+import LogoName from "../assets/images/pullovaLogo.png";
 import Button from "./Button";
 const Navbar = () => {
   const navigation = useNavigate();

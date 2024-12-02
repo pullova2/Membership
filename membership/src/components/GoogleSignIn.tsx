@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { MembershipPlans, useMembershipState } from "../store/useMembership";
 
-const GoogleSignIn = () => {
+const GoogleSignIn = ({ styles }: { styles?: string }) => {
   const navigate = useNavigate();
   const { setIndividualData, accountType } = useMembershipState();
 
@@ -58,7 +58,7 @@ const GoogleSignIn = () => {
     // <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
     <button
       onClick={() => login()}
-      className="bg-primary-light text-primary-dark p-4 rounded-md flex items-center justify-evenly"
+      className={`${styles} bg-primary-light text-primary-dark p-4 rounded-md flex items-center justify-evenly`}
     >
       <FcGoogle size={32} />
       continue with Google

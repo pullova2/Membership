@@ -43,7 +43,7 @@ const Login = () => {
           className="placeholder:text-primary-abbey"
         />
         <Button name="submit" type="button" className="text-primary-light" />
-        <GoogleSignIn />
+        <GoogleSignIn styles="border border-primary-dark" />
         <div className="flex md:mt-4 mt-2 justify-evenly">
           <h6>Don't have an account?</h6>
           <Link className="underline font-bold" to={"/register"}>
